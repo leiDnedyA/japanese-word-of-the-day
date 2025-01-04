@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Japanese Word of the Day</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Arial', sans-serif;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%);
+      color: #333;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    .container {
+      text-align: center;
+      background: #ffffffcc;
+      border-radius: 15px;
+      padding: 20px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      max-width: 500px;
+      width: 80%;
+    }
+
+    .title {
+      font-size: 2rem;
+      margin-bottom: 10px;
+      color: #ff6f61;
+    }
+
+    .word {
+      font-size: 3rem;
+      font-weight: bold;
+      color: #333;
+      margin-bottom: 10px;
+    }
+
+    .furigana {
+      font-size: 1rem;
+      color: #333;
+      margin-top: 15px;
+    }
+
+    .meaning {
+      font-size: 1.2rem;
+      color: #666;
+      margin-bottom: 20px;
+    }
+
+    .cardFooter {
+      font-size: 0.9rem;
+      color: #777;
+    }
+
+    .footer {
+      font-size: 0.9rem;
+      color: #777;
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      text-align: center;
+      padding: 10px 0;
+    }
+
+    @media (max-width: 768px) {
+      .title {
+        font-size: 1.5rem;
+      }
+
+      .word {
+        font-size: 2.5rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <div class="title">Japanese Word of the Day</div>
+    <div class="furigana" id="furigana">こんにちは</div>
+    <div class="word" id="word">こんにちは</div>
+    <div class="meaning" id="meaning">Hello</div>
+    <footer class="cardFooter">Learn a new word every day and expand your Japanese vocabulary!</footer>
+  </div>
+
+  <footer class="footer">Made with ❤️ by Ayden Diel |
+    <a href="https://docs.google.com/forms/d/e/1FAIpQLSf9FCH_Vw5CVCVyaPDpGKYQl5k4fWHivx7UR4mHtJDT-aSqVA/viewform?usp=header"
+      target="_blank">Request a Feature</a> |
+    <a href="https://aydendiel.dev" target="_blank">aydendiel.dev</a> |
+    <a href="https://x.com/aydendiel" target="_blank">X (twitter)</a>
+  </footer>
+
+  <script>
+
+    const words = [
+      {
+        "word": "こんにちは",
+        "furigana": "こんにちわ",
+        "meaning": "Hello"
+      },
+      {
+        "word": "ありがとう",
+        "furigana": "ありがとう",
+        "meaning": "Thank you"
+      },
+      {
+        "word": "さようなら",
+        "furigana": "さようなら",
+        "meaning": "Goodbye"
+      },
+      {
+        "word": "おはよう",
+        "furigana": "おはよう",
+        "meaning": "Good morning"
+      },
+      {
+        "word": "すみません",
+        "furigana": "すみません",
+        "meaning": "Excuse me / I'm sorry"
+      },
+      {
+        "word": "はい",
+        "furigana": "はい",
+        "meaning": "Yes"
+      },
+      {
+        "word": "いいえ",
+        "furigana": "いいえ",
+        "meaning": "No"
+      },
+      {
+        "word": "お願いします",
+        "furigana": "おねがいします",
+        "meaning": "Please"
+      },
+      {
+        "word": "お疲れ様",
+        "furigana": "おつかれさま",
+        "meaning": "Good job / Thank you for your hard work"
+      },
+      {
+        "word": "いただきます",
+        "furigana": "いただきます",
+        "meaning": "Let's eat / Thank you for the meal (before eating)"
+      },
+      {
+        "word": "ごちそうさまでした",
+        "furigana": "ごちそうさまでした",
+        "meaning": "Thank you for the meal (after eating)"
+      },
+      {
+        "word": "おやすみなさい",
+        "furigana": "おやすみなさい",
+        "meaning": "Good night"
+      },
+      {
+        "word": "お元気ですか",
+        "furigana": "おげんきですか",
+        "meaning": "How are you?"
+      },
+      {
+        "word": "元気です",
+        "furigana": "げんきです",
+        "meaning": "I am fine"
+      },
+      {
+        "word": "よろしくお願いします",
+        "furigana": "よろしくおねがいします",
+        "meaning": "Nice to meet you / Please take care of me"
+      },
+      {
+        "word": "頑張って",
+        "furigana": "がんばって",
+        "meaning": "Good luck / Do your best"
+      },
+      {
+        "word": "お誕生日おめでとう",
+        "furigana": "おたんじょうびおめでとう",
+        "meaning": "Happy birthday"
+      },
+      {
+        "word": "新年おめでとう",
+        "furigana": "しんねんおめでとう",
+        "meaning": "Happy New Year"
+      },
+      {
+        "word": "寒い",
+        "furigana": "さむい",
+        "meaning": "Cold"
+      },
+      {
+        "word": "暑い",
+        "furigana": "あつい",
+        "meaning": "Hot"
+      },
+      {
+        "word": "楽しい",
+        "furigana": "たのしい",
+        "meaning": "Fun"
+      },
+      {
+        "word": "美味しい",
+        "furigana": "おいしい",
+        "meaning": "Delicious"
+      },
+      {
+        "word": "難しい",
+        "furigana": "むずかしい",
+        "meaning": "Difficult"
+      },
+      {
+        "word": "簡単",
+        "furigana": "かんたん",
+        "meaning": "Easy"
+      },
+      {
+        "word": "早い",
+        "furigana": "はやい",
+        "meaning": "Fast / Early"
+      },
+      {
+        "word": "遅い",
+        "furigana": "おそい",
+        "meaning": "Slow / Late"
+      },
+      {
+        "word": "きれい",
+        "furigana": "きれい",
+        "meaning": "Beautiful / Clean"
+      },
+      {
+        "word": "かわいい",
+        "furigana": "かわいい",
+        "meaning": "Cute"
+      },
+      {
+        "word": "すごい",
+        "furigana": "すごい",
+        "meaning": "Amazing / Great"
+      },
+      {
+        "word": "忙しい",
+        "furigana": "いそがしい",
+        "meaning": "Busy"
+      },
+      {
+        "word": "嬉しい",
+        "furigana": "うれしい",
+        "meaning": "Happy"
+      },
+      {
+        "word": "悲しい",
+        "furigana": "かなしい",
+        "meaning": "Sad"
+      },
+      {
+        "word": "高い",
+        "furigana": "たかい",
+        "meaning": "Expensive / Tall"
+      },
+      {
+        "word": "安い",
+        "furigana": "やすい",
+        "meaning": "Cheap"
+      },
+      {
+        "word": "面白い",
+        "furigana": "おもしろい",
+        "meaning": "Interesting / Funny"
+      },
+      {
+        "word": "楽しい",
+        "furigana": "たのしい",
+        "meaning": "Enjoyable / Fun"
+      },
+      {
+        "word": "眠い",
+        "furigana": "ねむい",
+        "meaning": "Sleepy"
+      },
+      {
+        "word": "大きい",
+        "furigana": "おおきい",
+        "meaning": "Big"
+      },
+      {
+        "word": "小さい",
+        "furigana": "ちいさい",
+        "meaning": "Small"
+      },
+      {
+        "word": "遠い",
+        "furigana": "とおい",
+        "meaning": "Far"
+      },
+      {
+        "word": "近い",
+        "furigana": "ちかい",
+        "meaning": "Close / Nearby"
+      },
+      {
+        "word": "新しい",
+        "furigana": "あたらしい",
+        "meaning": "New"
+      },
+      {
+        "word": "古い",
+        "furigana": "ふるい",
+        "meaning": "Old (not for people)"
+      },
+      {
+        "word": "熱い",
+        "furigana": "あつい",
+        "meaning": "Hot (to touch)"
+      },
+      {
+        "word": "冷たい",
+        "furigana": "つめたい",
+        "meaning": "Cold (to touch)"
+      },
+      {
+        "word": "重い",
+        "furigana": "おもい",
+        "meaning": "Heavy"
+      },
+      {
+        "word": "軽い",
+        "furigana": "かるい",
+        "meaning": "Light (weight)"
+      },
+      {
+        "word": "広い",
+        "furigana": "ひろい",
+        "meaning": "Spacious / Wide"
+      },
+      {
+        "word": "狭い",
+        "furigana": "せまい",
+        "meaning": "Narrow / Small (space)"
+      },
+      {
+        "word": "高い",
+        "furigana": "たかい",
+        "meaning": "Tall / Expensive"
+      },
+      {
+        "word": "低い",
+        "furigana": "ひくい",
+        "meaning": "Short / Low"
+      }
+    ]
+
+    function getWordOfTheDay() {
+      const unixTime = Math.floor(Date.now() / 1000);
+      const todayFromUnixEpoc = Math.floor(unixTime / (60 * 60 * 24));
+      const index = todayFromUnixEpoc % words.length;
+      const wordData = words[index];
+
+      document.getElementById("word").textContent = wordData.word;
+      document.getElementById("furigana").textContent = `(${wordData.furigana})`;
+      document.getElementById("meaning").textContent = wordData.meaning;
+    }
+
+    getWordOfTheDay();
+  </script>
+</body>
+
+</html>
