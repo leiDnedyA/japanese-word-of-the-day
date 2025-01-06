@@ -128,46 +128,6 @@
 
     const words = [
       {
-        "word": "こんにちは",
-        "furigana": "こんにちわ",
-        "meaning": "Hello"
-      },
-      {
-        "word": "ありがとう",
-        "furigana": "ありがとう",
-        "meaning": "Thank you"
-      },
-      {
-        "word": "さようなら",
-        "furigana": "さようなら",
-        "meaning": "Goodbye"
-      },
-      {
-        "word": "おはよう",
-        "furigana": "おはよう",
-        "meaning": "Good morning"
-      },
-      {
-        "word": "すみません",
-        "furigana": "すみません",
-        "meaning": "Excuse me / I'm sorry"
-      },
-      {
-        "word": "はい",
-        "furigana": "はい",
-        "meaning": "Yes"
-      },
-      {
-        "word": "いいえ",
-        "furigana": "いいえ",
-        "meaning": "No"
-      },
-      {
-        "word": "お願いします",
-        "furigana": "おねがいします",
-        "meaning": "Please"
-      },
-      {
         "word": "お疲れ様",
         "furigana": "おつかれさま",
         "meaning": "Good job / Thank you for your hard work"
@@ -186,21 +146,6 @@
         "word": "おやすみなさい",
         "furigana": "おやすみなさい",
         "meaning": "Good night"
-      },
-      {
-        "word": "お元気ですか",
-        "furigana": "おげんきですか",
-        "meaning": "How are you?"
-      },
-      {
-        "word": "元気です",
-        "furigana": "げんきです",
-        "meaning": "I am fine"
-      },
-      {
-        "word": "よろしくお願いします",
-        "furigana": "よろしくおねがいします",
-        "meaning": "Nice to meet you / Please take care of me"
       },
       {
         "word": "頑張って",
@@ -384,10 +329,19 @@
       }
     ]
 
+    const START_DATE_STRING = "2024-01-06";
+    const START_INDEX = 3;
+
     function getWordOfTheDay() {
-      const unixTime = Math.floor(Date.now() / 1000);
-      const todayFromUnixEpoc = Math.floor(unixTime / (60 * 60 * 24));
-      const index = todayFromUnixEpoc % words.length;
+      // Normalize time so word changes at 12AM local time for user
+      const startDate = new Date(START_DATE_STRING);
+      startDate.setHours(0, 0, 0, 0);
+      const now = new Date();
+      now.setHours(0, 0, 0, 0);
+      const diffInMilliseconds = now - startDate;
+      const diffInDays = Math.floor(diffInMilliseconds / (1000 * 60 * 60 * 24));
+
+      const index = (diffInDays + START_INDEX) % words.length;
       const wordData = words[index];
 
       document.getElementById("word").textContent = wordData.word;
