@@ -4,8 +4,20 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Japanese Word of the Day</title>
+  <title>Japanese Word of the Day | dailykanji.xyz</title>
   <link rel="icon" href="favicon.png" type="image/png">
+  <meta name="description"
+    content="Build the small habit of learning one Japanese word per day! New words posted daily including spelling, furigana, and their English translation.">
+  <link rel="canonical" href="https://dailykanji.xyz/">
+  <meta property="og:title" content="Japanese Word of the Day | dailykanji.xyz">
+  <meta property="og:description" content="Build the small habit of learning one Japanese word per day!">
+  <meta property="og:image" content="https://dailykanji.xyz/demo.png">
+  <meta property="og:url" content="https://dailykanji.xyz/">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Japanese Word of the Day | dailykanji.xyz">
+  <meta name="twitter:description"
+    content="Build the habit of learning one new Japanese word each day, including furigana and meanings.">
+  <meta name="twitter:image" content="https://dailykanji.xyz/demo.png">
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-V74YTKD4CF"></script>
   <script>
@@ -15,6 +27,20 @@
 
     gtag('config', 'G-V74YTKD4CF');
   </script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "EducationalOccupationalProgram",
+  "name": "Japanese Word of the Day",
+  "description": "Learn a new Japanese word every day with its meaning, furigana, and pronunciation.",
+  "educationalLevel": "Beginner",
+  "provider": {
+    "@type": "Organization",
+    "name": "Ayden Diel",
+    "url": "https://aydendiel.dev"
+  }
+}
+</script>
   <style>
     html,
     body {
@@ -54,6 +80,8 @@
 
     .title {
       font-size: 2rem;
+      font-weight: normal;
+      margin-top: 0;
       margin-bottom: 10px;
       color: #ff6f61;
     }
@@ -63,18 +91,21 @@
       font-weight: bold;
       color: #333;
       margin-bottom: 10px;
+      margin-top: 0;
     }
 
     .furigana {
       font-size: 1rem;
       color: #333;
       margin-top: 15px;
+      margin-bottom: 0;
     }
 
     .meaning {
       font-size: 1.2rem;
       color: #666;
       margin-bottom: 20px;
+      margin-top: 0;
     }
 
     .cardFooter {
@@ -108,11 +139,11 @@
 
 <body>
   <div class="wrapper">
-    <div class="container">
-      <div class="title">🇯🇵 Japanese Word of the Day</div>
-      <div class="furigana" id="furigana">こんにちは</div>
-      <div class="word" id="word">こんにちは</div>
-      <div class="meaning" id="meaning">Hello</div>
+    <div class="container" role="main">
+      <h1 class="title">🇯🇵 Japanese Word of the Day</h1>
+      <p class="furigana" id="furigana">こんにちは</p>
+      <h2 class="word" id="word">こんにちは</h2>
+      <p class="meaning" id="meaning">Hello</p>
       <footer class="cardFooter">Learn a new word every day and expand your Japanese vocabulary!</footer>
     </div>
 
