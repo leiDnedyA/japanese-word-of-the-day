@@ -95,6 +95,7 @@
     }
 
     .furigana {
+      height: 1.2rem;
       font-size: 1rem;
       color: #333;
       margin-top: 15px;
@@ -104,7 +105,7 @@
     .meaning {
       font-size: 1.2rem;
       color: #666;
-      margin-bottom: 20px;
+      margin-bottom: 10px;
       margin-top: 0;
     }
 
@@ -123,6 +124,32 @@
       width: 100%;
       text-align: center;
       padding: 10px 0;
+    }
+
+    button {
+      background: #ff9196;
+      border: none;
+      border-radius: 3px;
+      color: white;
+      padding-top: 3px;
+      padding-bottom: 3px;
+      padding-left: 5px;
+      padding-right: 5px;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      transition: background 200ms;
+    }
+
+    button:hover {
+      background: #ff6f61;
+    }
+
+    button:active {
+      background: #ff9a9e;
+    }
+
+    .button-container {
+      margin-bottom: 18px;
     }
 
     @media (max-width: 768px) {
@@ -144,6 +171,10 @@
       <p class="furigana" id="furigana">こんにちは</p>
       <h2 class="word" id="word">こんにちは</h2>
       <p class="meaning" id="meaning">Hello</p>
+      <div class="button-container">
+        <button onclick="showRandomWord()" id="random-word-button">Random Word</button>
+        <button onclick="toggleRomaji()" id="show-romaji-button">Show Romaji</button>
+      </div>
       <footer class="cardFooter">Learn a new word every day and expand your Japanese vocabulary!</footer>
     </div>
 
@@ -157,211 +188,291 @@
 
   <script>
 
+    console.log("Welcome! ようこそ！ (●'◡'●)")
+
     const words = [
       {
         "word": "お疲れ様",
         "furigana": "おつかれさま",
+        "romaji": "otsukaresama",
         "meaning": "Good job / Thank you for your hard work"
       },
       {
         "word": "いただきます",
         "furigana": "いただきます",
+        "romaji": "itadakimasu",
         "meaning": "Let's eat / Thank you for the meal (before eating)"
       },
       {
         "word": "ごちそうさまでした",
         "furigana": "ごちそうさまでした",
+        "romaji": "gochisousama deshita",
         "meaning": "Thank you for the meal (after eating)"
       },
       {
         "word": "おやすみなさい",
         "furigana": "おやすみなさい",
+        "romaji": "oyasuminasai",
         "meaning": "Good night"
       },
       {
         "word": "頑張って",
         "furigana": "がんばって",
+        "romaji": "ganbatte",
         "meaning": "Good luck / Do your best"
       },
       {
         "word": "お誕生日おめでとう",
         "furigana": "おたんじょうびおめでとう",
+        "romaji": "otanjoubi omedetou",
         "meaning": "Happy birthday"
       },
       {
         "word": "新年おめでとう",
         "furigana": "しんねんおめでとう",
+        "romaji": "shinnen omedetou",
         "meaning": "Happy New Year"
       },
       {
         "word": "寒い",
         "furigana": "さむい",
+        "romaji": "samui",
         "meaning": "Cold"
       },
       {
         "word": "暑い",
         "furigana": "あつい",
+        "romaji": "atsui",
         "meaning": "Hot"
       },
       {
         "word": "楽しい",
         "furigana": "たのしい",
+        "romaji": "tanoshii",
         "meaning": "Fun"
       },
       {
         "word": "美味しい",
         "furigana": "おいしい",
+        "romaji": "oishii",
         "meaning": "Delicious"
       },
       {
         "word": "難しい",
         "furigana": "むずかしい",
+        "romaji": "muzukashii",
         "meaning": "Difficult"
       },
       {
         "word": "簡単",
         "furigana": "かんたん",
+        "romaji": "kantan",
         "meaning": "Easy"
       },
       {
         "word": "早い",
         "furigana": "はやい",
+        "romaji": "hayai",
         "meaning": "Fast / Early"
       },
       {
         "word": "遅い",
         "furigana": "おそい",
+        "romaji": "osoi",
         "meaning": "Slow / Late"
       },
       {
         "word": "きれい",
         "furigana": "きれい",
+        "romaji": "kirei",
         "meaning": "Beautiful / Clean"
       },
       {
         "word": "かわいい",
         "furigana": "かわいい",
+        "romaji": "kawaii",
         "meaning": "Cute"
       },
       {
         "word": "すごい",
         "furigana": "すごい",
+        "romaji": "sugoi",
         "meaning": "Amazing / Great"
       },
       {
         "word": "忙しい",
         "furigana": "いそがしい",
+        "romaji": "isogashii",
         "meaning": "Busy"
       },
       {
         "word": "嬉しい",
         "furigana": "うれしい",
+        "romaji": "ureshii",
         "meaning": "Happy"
       },
       {
         "word": "悲しい",
         "furigana": "かなしい",
+        "romaji": "kanashii",
         "meaning": "Sad"
       },
       {
         "word": "高い",
         "furigana": "たかい",
+        "romaji": "takai",
         "meaning": "Expensive / Tall"
       },
       {
         "word": "安い",
         "furigana": "やすい",
+        "romaji": "yasui",
         "meaning": "Cheap"
       },
       {
         "word": "面白い",
         "furigana": "おもしろい",
+        "romaji": "omoshiroi",
         "meaning": "Interesting / Funny"
       },
       {
         "word": "楽しい",
         "furigana": "たのしい",
+        "romaji": "tanoshii",
         "meaning": "Enjoyable / Fun"
       },
       {
         "word": "眠い",
         "furigana": "ねむい",
+        "romaji": "nemui",
         "meaning": "Sleepy"
       },
       {
         "word": "大きい",
         "furigana": "おおきい",
+        "romaji": "ookii",
         "meaning": "Big"
       },
       {
         "word": "小さい",
         "furigana": "ちいさい",
+        "romaji": "chiisai",
         "meaning": "Small"
       },
       {
         "word": "遠い",
         "furigana": "とおい",
+        "romaji": "tooi",
         "meaning": "Far"
       },
       {
         "word": "近い",
         "furigana": "ちかい",
+        "romaji": "chikai",
         "meaning": "Close / Nearby"
       },
       {
         "word": "新しい",
         "furigana": "あたらしい",
+        "romaji": "atarashii",
         "meaning": "New"
       },
       {
         "word": "古い",
         "furigana": "ふるい",
+        "romaji": "furui",
         "meaning": "Old (not for people)"
       },
       {
         "word": "熱い",
         "furigana": "あつい",
+        "romaji": "atsui",
         "meaning": "Hot (to touch)"
       },
       {
         "word": "冷たい",
         "furigana": "つめたい",
+        "romaji": "tsumetai",
         "meaning": "Cold (to touch)"
       },
       {
         "word": "重い",
         "furigana": "おもい",
+        "romaji": "omoi",
         "meaning": "Heavy"
       },
       {
         "word": "軽い",
         "furigana": "かるい",
+        "romaji": "karui",
         "meaning": "Light (weight)"
       },
       {
         "word": "広い",
         "furigana": "ひろい",
+        "romaji": "hiroi",
         "meaning": "Spacious / Wide"
       },
       {
         "word": "狭い",
         "furigana": "せまい",
+        "romaji": "semai",
         "meaning": "Narrow / Small (space)"
       },
       {
         "word": "高い",
         "furigana": "たかい",
+        "romaji": "takai",
         "meaning": "Tall / Expensive"
       },
       {
         "word": "低い",
         "furigana": "ひくい",
+        "romaji": "hikui",
         "meaning": "Short / Low"
       }
-    ]
-
+    ];
     const START_DATE_STRING = "2024-01-06";
     const START_INDEX = 3;
+
+    let wordIndex = 0;
+    let romajiVisible = false;
+
+    const furiganaText = document.getElementById("furigana");
+    const wordText = document.getElementById("word");
+    const meaningText = document.getElementById("meaning");
+    const showRomajiButton = document.getElementById("show-romaji-button");
+    const randomWordButton = document.getElementById("random-word-button");
+
+    function toggleRomaji() {
+      romajiVisible = !romajiVisible;
+      if (romajiVisible) {
+        showRomajiButton.innerText = "Hide Romaji";
+      } else {
+        showRomajiButton.innerText = "Show Romaji";
+      }
+      renderCurrentWord();
+    }
+
+    function getRandomInt(min, max) {
+      min = Math.ceil(min);
+      max = Math.floor(max);
+      return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+
+    function showRandomWord() {
+      wordIndex = getRandomInt(0, words.length - 1);
+      renderCurrentWord();
+    }
+
+    function renderCurrentWord() {
+      const word = words[wordIndex];
+      wordText.textContent = word.word;
+      furiganaText.textContent = romajiVisible ?
+        `${words[wordIndex].furigana} (${words[wordIndex].romaji})` :
+        word.furigana;
+      meaningText.textContent = word.meaning;
+    }
 
     function getWordOfTheDay() {
       // Normalize time so word changes at 12AM local time for user
@@ -372,15 +483,18 @@
       const diffInMilliseconds = now - startDate;
       const diffInDays = Math.floor(diffInMilliseconds / (1000 * 60 * 60 * 24));
 
-      const index = (diffInDays + START_INDEX) % words.length;
-      const wordData = words[index];
+      wordIndex = (diffInDays + START_INDEX) % words.length;
 
-      document.getElementById("word").textContent = wordData.word;
-      document.getElementById("furigana").textContent = wordData.furigana;
-      document.getElementById("meaning").textContent = wordData.meaning;
+      renderCurrentWord();
     }
 
     getWordOfTheDay();
+
+    window.onload = () => {
+      showRomajiButton.onclick = toggleRomaji;
+      randomWordButton.onclick = showRandomWord;
+    }
+
   </script>
 </body>
 
