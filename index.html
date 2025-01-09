@@ -141,11 +141,11 @@
       padding: 10px 0;
     }
 
-    button {
+    .input {
       background: #ff9196;
+      color: white;
       border: none;
       border-radius: 3px;
-      color: white;
       padding-top: 3px;
       padding-bottom: 3px;
       padding-left: 5px;
@@ -155,11 +155,11 @@
       transition: background 200ms;
     }
 
-    button:hover {
+    .input:hover {
       background: #ff6f61;
     }
 
-    button:active {
+    .input:active {
       background: #ff9a9e;
     }
 
@@ -187,8 +187,16 @@
       <h2 class="word" id="word">ローディング</h2>
       <p class="meaning" id="meaning">loading...</p>
       <div class="button-container">
-        <button onclick="showRandomWord()" id="random-word-button">Random Word</button>
-        <button onclick="toggleRomaji()" id="show-romaji-button">Show Romaji</button>
+        <button class="input" onclick="showRandomWord()" id="random-word-button">Random Word</button>
+        <button class="input" onclick="toggleRomaji()" id="show-romaji-button">Show Romaji</button>
+        <select onchange="handleJlptLevelChange(this)" id="jlpt-level-dropdown" class="input"
+          class="jlpt-level-dropdown">
+          <option value="5">JLPT N5</option>
+          <option value="4">JLPT N4</option>
+          <option value="3">JLPT N3</option>
+          <option value="2">JLPT N2</option>
+          <option value="1">JLPT N1</option>
+        </select>
       </div>
       <footer class="cardFooter">Tip: Add this page to your <strong>bookmarks bar</strong> and come back daily to build
         the habit of learning Japanese!</footer>
@@ -217,7 +225,7 @@
       "meaning": "Welcome",
     };
 
-    let jlptLevel = 1; // TODO: fill this in based on localStorage
+    let jlptLevel = 5;
     let levelWordCount = 0;
     let wordIndex = 0;
     let romajiVisible = false;
@@ -227,6 +235,7 @@
     const meaningText = document.getElementById("meaning");
     const showRomajiButton = document.getElementById("show-romaji-button");
     const randomWordButton = document.getElementById("random-word-button");
+    const jlptLevelDropdown = document.getElementById("jlpt-level-dropdown");
 
     /**
      * Checks if a Japanese word contains kanji characters.
@@ -259,6 +268,7 @@
     function toggleRomaji() {
       romajiVisible = !romajiVisible;
       renderCurrentWord();
+      localStorage.setItem("romajiVisible", `${romajiVisible}`);
     }
 
     function getRandomInt(min, max) {
@@ -323,8 +333,7 @@
       }
     }
 
-    async function initialize() {
-      setLoading(true);
+    function getTodaysHash() {
       // Normalize time so word changes at 12AM local time for user
       const startDate = new Date(START_DATE_STRING);
       startDate.setHours(0, 0, 0, 0);
@@ -332,11 +341,51 @@
       now.setHours(0, 0, 0, 0);
       const diffInMilliseconds = now - startDate;
       const diffInDays = Math.floor(diffInMilliseconds / (1000 * 60 * 60 * 24));
+      return diffInDays + START_INDEX;
+    }
 
-      // set word count based on JLPT level
+    async function handleJlptLevelChange(target) {
+      setLoading(true);
+
+      jlptLevel = parseInt(target.value);
+
+      // store value in localstorage
+      localStorage.setItem("jlptLevel", `${jlptLevel}`);
+
+      // update view
+      const todaysHash = getTodaysHash();
       levelWordCount = await getJlptLevelWordCount(jlptLevel);
+      wordIndex = todaysHash % levelWordCount;
+      word = await getJlptWord(wordIndex, jlptLevel);
 
-      wordIndex = (diffInDays + START_INDEX) % levelWordCount;
+      setLoading(false);
+      renderCurrentWord();
+    }
+
+    async function initialize() {
+      setLoading(true);
+
+      // fetch values from localstorage
+      const storedJlptLevel = localStorage.getItem("jlptLevel");
+      const storedRomajiVisible = localStorage.getItem("romajiVisible");
+
+      if (storedJlptLevel) {
+        if (!isNaN(parseInt(storedJlptLevel))) {
+          jlptLevel = parseInt(storedJlptLevel)
+          jlptLevelDropdown.value = jlptLevel;
+        } else {
+          localStorage.removeItem("jlptLevel");
+        }
+      }
+
+      if (storedRomajiVisible === "true") {
+        romajiVisible = true;
+      }
+
+      // set current word
+      const todaysHash = getTodaysHash();
+      levelWordCount = await getJlptLevelWordCount(jlptLevel);
+      wordIndex = todaysHash % levelWordCount;
       word = await getJlptWord(wordIndex, jlptLevel);
 
       setLoading(false);
