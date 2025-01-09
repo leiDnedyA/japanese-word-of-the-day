@@ -503,6 +503,7 @@
     function renderCurrentWord() {
       const word = words[wordIndex];
       wordText.textContent = word.word;
+      meaningText.textContent = word.meaning;
 
       if (word.noKanji && !romajiVisible) {
         furiganaText.style.display = "none";
