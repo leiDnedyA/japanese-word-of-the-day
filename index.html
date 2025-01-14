@@ -41,8 +41,19 @@
 }
 </script>
   <style>
+    @font-face {
+      font-family: "Noto Serif";
+      src: url('fonts/Noto_Serif/NotoSerif-VariableFont_wdth,wght.ttf') format("truetype");
+    }
+
+    @font-face {
+      font-family: "Noto Serif JP";
+      src: url('fonts/Noto_Serif_JP/NotoSerifJP-VariableFont_wght.ttf') format("truetype");
+    }
+
     html,
     body {
+      font-family: 'Noto Serif', serif;
       margin: 0;
       padding: 0;
       height: 100%;
@@ -56,11 +67,11 @@
     .wrapper {
       height: 100%;
       width: 100vw;
-      font-family: 'Arial', sans-serif;
       display: flex;
       flex-direction: column;
       align-items: center;
-      background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%);
+      /*background: linear-gradient(135deg, #ffeeee 0%, white 100%);*/
+      background: #ffeeee;
       color: #333;
       overflow: hidden;
     }
@@ -73,17 +84,23 @@
       background: #ffffffcc;
       border-radius: 15px;
       padding: 20px;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      box-shadow: 0 4px 8px rgba(47, 0, 0, 0.2);
+      border: 1px solid #faa;
       position: relative;
       top: 27vh;
       max-width: 500px;
       width: 80%;
     }
-    
+
     @media (max-height: 800px) {
       .container {
         top: 20vh;
       }
+    }
+
+    .container>p,
+    .container>h2 {
+      transition: opacity 0.5s ease-in-out;
     }
 
     .container.loading>p,
@@ -97,7 +114,7 @@
       font-weight: normal;
       margin-top: 0;
       margin-bottom: 8px;
-      color: #ff6f61;
+      color: #ff2222;
     }
 
     .word {
@@ -120,11 +137,15 @@
       display: none;
     }
 
+    .japanese {
+      font-family: 'Noto Serif JP', sans-serif;
+    }
+
     .meaning {
       width: 80%;
       text-align: center;
       font-size: 1.2rem;
-      color: #666;
+      color: #444;
       margin-bottom: 10px;
       margin-top: 0;
     }
@@ -132,24 +153,25 @@
     .cardFooter {
       line-height: 1.3em;
       font-size: 0.9rem;
-      color: #777;
+      color: #555;
       position: relative;
       bottom: 0;
     }
 
     .footer {
       font-size: 0.9rem;
-      color: #777;
+      color: #666;
       position: fixed;
       bottom: 0;
       width: 100%;
       text-align: center;
-      padding: 10px 0;
+      padding: 10px 20px;
     }
 
     .input {
-      background: #ff9196;
+      font-family: 'Noto Serif', serif;
       color: white;
+      background-color: #ff5656;
       border: none;
       border-radius: 3px;
       padding-top: 3px;
@@ -157,16 +179,18 @@
       padding-left: 5px;
       padding-right: 5px;
       cursor: pointer;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-      transition: background 200ms;
+      box-shadow: 0 4px 10px rgba(50, 0, 0, 0.2);
+      transition: background 200ms, box-shadow 200ms;
     }
 
     .input:hover {
-      background: #ff6f61;
+      background: #f00;
+      box-shadow: 0 4px 14px rgba(50, 0, 0, 0.4);
     }
 
     .input:active {
-      background: #ff9a9e;
+      background: #f00;
+      box-shadow: 0 4px 17px rgba(50, 0, 0, 0.6);
     }
 
     .button-container {
@@ -181,6 +205,10 @@
       .word {
         font-size: 2.5rem;
       }
+
+      .footer {
+        font-size: .45rem;
+      }
     }
   </style>
 </head>
@@ -189,8 +217,8 @@
   <div class="wrapper">
     <div id="container" class="container loading" role="main">
       <h1 class="title">🇯🇵 Japanese Word of the Day</h1>
-      <p class="furigana empty" id="furigana">-</p>
-      <h2 class="word" id="word">ローディング</h2>
+      <p class="furigana empty japanese" id="furigana">-</p>
+      <h2 class="word japanese" id="word">ローディング</h2>
       <p class="meaning" id="meaning">loading...</p>
       <div class="button-container">
         <button class="input" onclick="showRandomWord()" id="random-word-button">Random Word</button>
@@ -204,8 +232,7 @@
           <option value="1">JLPT N1</option>
         </select>
       </div>
-      <footer class="cardFooter">Tip: Add this page to your <strong>bookmarks bar</strong> and come back daily to build
-        the habit of learning Japanese!</footer>
+      <footer class="cardFooter">Tip: Add this page to your <strong>bookmarks bar</strong>!</footer>
     </div>
 
     <footer class="footer">Made with ❤️ in 🇺🇸 by Ayden Diel |
