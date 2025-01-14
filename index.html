@@ -27,190 +27,20 @@
     gtag('config', 'G-V74YTKD4CF');
   </script>
   <script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "EducationalOccupationalProgram",
-  "name": "Japanese Word of the Day",
-  "description": "Japanese word of the day | Build the habit of learning one Japanese word per day!",
-  "educationalLevel": "Beginner",
-  "provider": {
-    "@type": "Organization",
-    "name": "Ayden Diel",
-    "url": "https://aydendiel.dev"
-  }
-}
-</script>
-  <style>
-    @font-face {
-      font-family: "Noto Serif";
-      src: url('fonts/Noto_Serif/NotoSerif-VariableFont_wdth,wght.ttf') format("truetype");
-    }
-
-    @font-face {
-      font-family: "Noto Serif JP";
-      src: url('fonts/Noto_Serif_JP/NotoSerifJP-VariableFont_wght.ttf') format("truetype");
-    }
-
-    html,
-    body {
-      font-family: 'Noto Serif', serif;
-      margin: 0;
-      padding: 0;
-      height: 100%;
-      width: 100vw;
-    }
-
-    a {
-      color: inherit;
-    }
-
-    .wrapper {
-      height: 100%;
-      width: 100vw;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      /*background: linear-gradient(135deg, #ffeeee 0%, white 100%);*/
-      background: #ffeeee;
-      color: #333;
-      overflow: hidden;
-    }
-
-    .container {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-      background: #ffffffcc;
-      border-radius: 15px;
-      padding: 20px;
-      box-shadow: 0 4px 8px rgba(47, 0, 0, 0.2);
-      border: 1px solid #faa;
-      position: relative;
-      top: 27vh;
-      max-width: 500px;
-      width: 80%;
-    }
-
-    @media (max-height: 800px) {
-      .container {
-        top: 20vh;
+    {
+      "@context": "https://schema.org",
+      "@type": "EducationalOccupationalProgram",
+      "name": "Japanese Word of the Day",
+      "description": "Japanese word of the day | Build the habit of learning one Japanese word per day!",
+      "educationalLevel": "Beginner",
+      "provider": {
+        "@type": "Organization",
+        "name": "Ayden Diel",
+        "url": "https://aydendiel.dev"
       }
     }
-
-    .container>p,
-    .container>h2 {
-      transition: opacity 0.5s ease-in-out;
-    }
-
-    .container.loading>p,
-    .container.loading>h2 {
-      opacity: .5;
-      cursor: default;
-    }
-
-    .title {
-      font-size: 2rem;
-      font-weight: normal;
-      margin-top: 0;
-      margin-bottom: 8px;
-      color: #ff2222;
-    }
-
-    .word {
-      font-size: 3rem;
-      font-weight: bold;
-      color: #333;
-      margin-bottom: 10px;
-      margin-top: 0;
-    }
-
-    .furigana {
-      height: 1.2rem;
-      font-size: 1rem;
-      color: #333;
-      margin-top: 15px;
-      margin-bottom: 0;
-    }
-
-    .furigana.empty {
-      display: none;
-    }
-
-    .japanese {
-      font-family: 'Noto Serif JP', sans-serif;
-    }
-
-    .meaning {
-      width: 80%;
-      text-align: center;
-      font-size: 1.2rem;
-      color: #444;
-      margin-bottom: 10px;
-      margin-top: 0;
-    }
-
-    .cardFooter {
-      line-height: 1.3em;
-      font-size: 0.9rem;
-      color: #555;
-      position: relative;
-      bottom: 0;
-    }
-
-    .footer {
-      font-size: 0.9rem;
-      color: #666;
-      position: fixed;
-      bottom: 0;
-      width: 100%;
-      text-align: center;
-      padding: 10px 20px;
-    }
-
-    .input {
-      font-family: 'Noto Serif', serif;
-      color: white;
-      background-color: #ff5656;
-      border: none;
-      border-radius: 3px;
-      padding-top: 3px;
-      padding-bottom: 3px;
-      padding-left: 5px;
-      padding-right: 5px;
-      cursor: pointer;
-      box-shadow: 0 4px 10px rgba(50, 0, 0, 0.2);
-      transition: background 200ms, box-shadow 200ms;
-    }
-
-    .input:hover {
-      background: #f00;
-      box-shadow: 0 4px 14px rgba(50, 0, 0, 0.4);
-    }
-
-    .input:active {
-      background: #f00;
-      box-shadow: 0 4px 17px rgba(50, 0, 0, 0.6);
-    }
-
-    .button-container {
-      margin-bottom: 18px;
-    }
-
-    @media (max-width: 768px) {
-      .title {
-        font-size: 1.5rem;
-      }
-
-      .word {
-        font-size: 2.5rem;
-      }
-
-      .footer {
-        font-size: .45rem;
-      }
-    }
-  </style>
+  </script>
+  <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
