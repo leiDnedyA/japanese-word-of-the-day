@@ -26,7 +26,7 @@ const app = {
 app.state.currentWord = { ...loadingWord };
 
 async function initialize() {
-  setLoading(true, app.state.currentWord, (word) => app.state.currentWord = word);
+  setLoading(true);
 
   initializeEventHandlers();
 
@@ -51,8 +51,8 @@ async function initialize() {
   app.state.wordIndex = todaysHash % app.state.levelWordCount;
   app.state.currentWord = await getJlptWord(app.state.wordIndex, app.state.jlptLevel);
 
-  setLoading(false, app.state.currentWord, (word) => app.state.currentWord = word);
-  renderCurrentWord(app.state.currentWord);
+  setLoading(false);
+  renderCurrentWord();
 }
 
 window.onload = initialize;

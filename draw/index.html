@@ -41,28 +41,60 @@
     }
   </script>
   <link rel="stylesheet" href="/styles.css">
+  <style>
+    .word.draw-page {
+      font-size: 2rem;
+      /* Reduced from 3rem */
+      font-weight: bold;
+      color: #333;
+      margin-bottom: 10px;
+      margin-top: 0;
+    }
+
+    .drawing-canvas {
+      width: 90%;
+      height: 15vh;
+      border: 2px solid #faa;
+      border-radius: 8px;
+      margin: 15px 0;
+      background: white;
+    }
+
+    @media (max-width: 768px) {
+      .word.draw-page {
+        font-size: 1.7rem;
+        /* Reduced from 2.5rem */
+      }
+
+      .drawing-canvas {
+        height: 300px;
+        /* Smaller height for mobile */
+      }
+    }
+  </style>
 </head>
 
 <body>
   <div class="wrapper">
     <div id="container" class="container loading" role="main">
-      <h1 class="title">[NEW ✨] Draw Today's Word</h1>
-      <!-- <p class="furigana empty japanese" id="furigana">-</p> -->
+      <h1 class="title">Draw Today's Word (new)</h1>
+      <p class="furigana empty japanese" id="furigana">-</p>
       <h2 class="word japanese" id="word">ローディング</h2>
-      <!-- <p class="meaning" id="meaning">loading...</p> -->
-      <!-- <div class="button-container"> -->
-      <!--   <button class="input" onclick="showRandomWord()" id="random-word-button">Random Word</button> -->
-      <!--   <button class="input" onclick="toggleRomaji()" id="show-romaji-button">Show Romaji</button> -->
-      <!--   <select onchange="handleJlptLevelChange(this)" id="jlpt-level-dropdown" class="input" -->
-      <!--     class="jlpt-level-dropdown"> -->
-      <!--     <option value="5">JLPT N5</option> -->
-      <!--     <option value="4">JLPT N4</option> -->
-      <!--     <option value="3">JLPT N3</option> -->
-      <!--     <option value="2">JLPT N2</option> -->
-      <!--     <option value="1">JLPT N1</option> -->
-      <!--   </select> -->
-      <!-- </div> -->
-      <!-- <footer class="cardFooter">Tip: Add this page to your <strong>bookmarks bar</strong>!</footer> -->
+      <p class="meaning" id="meaning">loading...</p>
+      <canvas id="drawing-canvas" class="drawing-canvas"></canvas>
+      <div class="button-container">
+        <button class="input" onclick="showRandomWord()" id="random-word-button">Random Word</button>
+        <button class="input" onclick="toggleRomaji()" id="show-romaji-button">Show Romaji</button>
+        <select onchange="handleJlptLevelChange(this)" id="jlpt-level-dropdown" class="input"
+          class="jlpt-level-dropdown">
+          <option value="5">JLPT N5</option>
+          <option value="4">JLPT N4</option>
+          <option value="3">JLPT N3</option>
+          <option value="2">JLPT N2</option>
+          <option value="1">JLPT N1</option>
+        </select>
+      </div>
+      <footer class="cardFooter">Tip: Add this page to your <strong>bookmarks bar</strong>!</footer>
     </div>
 
     <footer class="footer">Made with ❤️ in 🇺🇸 by Ayden Diel |
@@ -73,8 +105,7 @@
     </footer>
   </div>
 
-  <script src="/scripts/fetch_jlpt_api.js"></script>
-  <script src="/scripts/draw.js"></script>
+  <script type="module" src="/scripts/draw.js"></script>
 </body>
 
 </html>
